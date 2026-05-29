@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mình đi chơi cùng nhau nhé? 💛</title>
+<title>Mình đi chơi cùng nhau nhé, An An 💛</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -99,15 +99,29 @@
   .card.selected .pick::before{content:"✓ "}
 
   /* DOCK */
-  .dock{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:12px;
+  .dock{position:fixed;left:50%;bottom:22px;transform:translate(-50%,0);z-index:60;display:flex;align-items:center;gap:12px;
     background:var(--ink);color:#fff;padding:11px 13px 11px 22px;border-radius:999px;box-shadow:0 14px 44px rgba(0,0,0,.28);
-    font-size:.85rem;max-width:94vw}
+    font-size:.85rem;max-width:94vw;transition:transform .4s cubic-bezier(.2,.85,.25,1),opacity .35s ease}
+  .dock.hidden{transform:translate(-50%,160%);opacity:0;pointer-events:none}
   .dock .cnt{font-weight:300;opacity:.85;white-space:nowrap}
   .dock .cnt b{font-weight:600;opacity:1;color:var(--gold-soft)}
-  .dock button{border:0;border-radius:999px;padding:10px 16px;font-family:var(--sans);font-weight:600;font-size:.78rem;cursor:pointer;white-space:nowrap;transition:opacity .2s}
+  .dock button{border:0;border-radius:999px;padding:10px 17px;font-family:var(--sans);font-weight:600;font-size:.78rem;cursor:pointer;white-space:nowrap;transition:opacity .2s,filter .2s;display:inline-flex;align-items:center;gap:7px}
+  .dock button:hover{filter:brightness(1.08)}
   .dock .ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.28)}
   .dock .go{background:var(--gold);color:#fff}
   .dock button:disabled{opacity:.35;cursor:not-allowed}
+  .dock svg{width:15px;height:15px;stroke-width:2}
+  .plan-actions a{display:inline-flex;align-items:center;gap:9px}
+  .plan-actions a svg{width:17px;height:17px;stroke-width:2}
+
+  /* HEART / SPARKLE BURST */
+  .fx-heart{position:fixed;z-index:90;pointer-events:none;line-height:1;will-change:transform,opacity;
+    animation:floatUp 1.15s cubic-bezier(.25,.6,.3,1) forwards}
+  @keyframes floatUp{
+    0%{transform:translate(0,0) scale(.4);opacity:0}
+    18%{opacity:1}
+    100%{transform:translate(var(--dx,0),-110px) scale(1.15) rotate(var(--rot,0));opacity:0}
+  }
 
   /* PLAN PANEL */
   #planPanel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:34px 38px;margin-top:48px;box-shadow:var(--shadow);scroll-margin:90px}
@@ -132,7 +146,7 @@
 <body>
 <header>
   <div class="eyebrow">Lời mời · 30 / 5</div>
-  <h1>Mình đi chơi<br><em>cùng nhau nhé?</em></h1>
+  <h1>Mình đi chơi cùng nhau<br><em>nhé, An An?</em></h1>
   <div class="hr-gold"></div>
   <p>Trò chuyện · dạo phố · cùng nhau khám phá thành phố lên đèn</p>
   <div class="meta-bar">
@@ -148,7 +162,7 @@
   <div class="timeline">
     <h2>Lịch trình gợi ý</h2>
     <div class="sub">Một dòng chảy nhẹ nhàng, không gấp gáp</div>
-    <div class="tl-item"><div class="tl-time">15:00</div><div class="tl-desc"><b>Đón nàng</b><span>64 Nguyễn Khoái — xuất phát</span></div></div>
+    <div class="tl-item"><div class="tl-time">15:00</div><div class="tl-desc"><b>Đón An An</b><span>64 Nguyễn Khoái — xuất phát</span></div></div>
     <div class="tl-item"><div class="tl-time">15:15</div><div class="tl-desc"><b>Cafe trò chuyện</b><span>Ngay trên đường Nguyễn Khoái</span></div></div>
     <div class="tl-item"><div class="tl-time">16:30</div><div class="tl-desc"><b>Cùng nhau đi chơi</b><span>Hoạt động thú vị cho hai người</span></div></div>
     <div class="tl-item"><div class="tl-time">18:45</div><div class="tl-desc"><b>Ăn tối</b><span>Nhà hàng lãng mạn khu Bến Vân Đồn</span></div></div>
@@ -396,12 +410,12 @@
   <div id="planPanel">
     <h4>Lịch trình của mình</h4>
     <div class="ph">Bấm “Chọn địa điểm này” ở từng mục phía trên — lịch trình &amp; đường đi sẽ tự hiện ra ở đây.</div>
-    <div class="plan-row"><div class="t">15:00</div><div><div class="l">Điểm đón</div><div class="n">64 Nguyễn Khoái, P.2, Q.4</div></div></div>
+    <div class="plan-row"><div class="t">15:00</div><div><div class="l">Đón An An</div><div class="n">64 Nguyễn Khoái, P.2, Q.4</div></div></div>
     <div class="plan-row" data-slot="1"><div class="t">15:15</div><div><div class="l">Cafe trò chuyện</div><div class="n empty">— chưa chọn —</div></div></div>
     <div class="plan-row" data-slot="2"><div class="t">16:30</div><div><div class="l">Cùng nhau đi chơi</div><div class="n empty">— chưa chọn —</div></div></div>
     <div class="plan-row" data-slot="3"><div class="t">18:45</div><div><div class="l">Ăn tối</div><div class="n empty">— chưa chọn —</div></div></div>
     <div class="plan-row" data-slot="4"><div class="t">20:30</div><div><div class="l">Kết thúc buổi tối</div><div class="n empty">— chưa chọn —</div></div></div>
-    <div class="plan-actions"><a class="dis" id="routeBtn" target="_blank" rel="noopener" href="#">🧭 Chỉ đường toàn tuyến trên Google Maps</a></div>
+    <div class="plan-actions"><a class="dis" id="routeBtn" target="_blank" rel="noopener" href="#"><i data-lucide="route"></i>Chỉ đường toàn tuyến trên Google Maps</a></div>
   </div>
 
   <footer>
@@ -411,17 +425,36 @@
 
 </div>
 
-<div class="dock">
+<div class="dock hidden">
   <span class="cnt"><b id="dockCnt">0</b>/4 mục đã chọn</span>
-  <button class="ghost" id="toPlan">📋 Lịch trình</button>
-  <button class="go" id="dockRoute" disabled>🧭 Chỉ đường</button>
+  <button class="ghost" id="toPlan"><i data-lucide="scroll-text"></i>Lịch trình</button>
+  <button class="go" id="dockRoute" disabled><i data-lucide="navigation"></i>Chỉ đường</button>
 </div>
 
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
 (function(){
   var PICKUP = {name:'64 Nguyễn Khoái, P.2, Q.4', query:'64 Nguyen Khoai Phuong 2 Quan 4'};
   var sections = Array.prototype.slice.call(document.querySelectorAll('section'));
   var state = {};
+  var dock = document.querySelector('.dock');
+
+  var GLYPHS = ['💛','✨','🤍','💫','🩷'];
+  function burst(x, y){
+    for(var i=0;i<9;i++){
+      var s = document.createElement('span');
+      s.className = 'fx-heart';
+      s.textContent = GLYPHS[Math.floor(Math.random()*GLYPHS.length)];
+      s.style.left = (x - 9) + 'px';
+      s.style.top  = (y - 9) + 'px';
+      s.style.setProperty('--dx', (Math.random()*150 - 75).toFixed(0) + 'px');
+      s.style.setProperty('--rot', (Math.random()*60 - 30).toFixed(0) + 'deg');
+      s.style.fontSize = (13 + Math.random()*13).toFixed(0) + 'px';
+      s.style.animationDelay = (Math.random()*0.14).toFixed(2) + 's';
+      document.body.appendChild(s);
+      (function(el){ setTimeout(function(){ el.remove(); }, 1400); })(s);
+    }
+  }
 
   sections.forEach(function(sec, i){
     var slot = i + 1;
@@ -434,14 +467,20 @@
       btn.className = 'pick';
       btn.type = 'button';
       btn.textContent = 'Chọn địa điểm này';
-      btn.addEventListener('click', function(){
+      btn.addEventListener('click', function(ev){
         var already = card.classList.contains('selected');
         sec.querySelectorAll('.card').forEach(function(c){
           c.classList.remove('selected');
           var b = c.querySelector('.pick'); if(b) b.textContent = 'Chọn địa điểm này';
         });
         if(already){ delete state[slot]; }
-        else { card.classList.add('selected'); btn.textContent = 'Đã chọn'; state[slot] = {name:name, query:query}; }
+        else {
+          card.classList.add('selected'); btn.textContent = 'Đã chọn'; state[slot] = {name:name, query:query};
+          var r = btn.getBoundingClientRect();
+          var px = (ev && ev.clientX) ? ev.clientX : r.left + r.width/2;
+          var py = (ev && ev.clientY) ? ev.clientY : r.top + r.height/2;
+          burst(px, py);
+        }
         render();
       });
       card.querySelector('.body').appendChild(btn);
@@ -460,6 +499,7 @@
       else { row.textContent = '— chưa chọn —'; row.classList.add('empty'); }
     }
     dockCnt.textContent = count;
+    if(count > 0) dock.classList.remove('hidden'); else dock.classList.add('hidden');
 
     var stops = [PICKUP];
     for(var k=1; k<=4; k++){ if(state[k]) stops.push(state[k]); }
@@ -482,6 +522,7 @@
   });
 
   render();
+  if(window.lucide){ lucide.createIcons(); }
 })();
 </script>
 </body>
