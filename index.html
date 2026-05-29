@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mình đi chơi cùng nhau nhé? 💛</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f4ef; --paper:#fffdfa; --ink:#23201c; --muted:#9a9086;
+    --gold:#b08d4f; --gold-soft:#e8dcc4; --line:#ece5da;
+    --shadow:0 10px 40px rgba(60,45,30,.06);
+    --serif:"Playfair Display",Georgia,serif;
+    --sans:"Inter",-apple-system,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-weight:400;
+    line-height:1.7;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+
+  /* HERO */
+  header{text-align:center;padding:90px 24px 64px;background:var(--paper);border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:22px}
+  header h1{font-family:var(--serif);font-weight:600;font-size:3rem;line-height:1.15;letter-spacing:.5px}
+  header h1 em{font-style:italic;color:var(--gold)}
+  .hr-gold{width:54px;height:1px;background:var(--gold);margin:26px auto}
+  header p{color:var(--muted);font-weight:300;font-size:1.05rem;max-width:440px;margin:0 auto}
+  .meta-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:34px}
+  .pill{border:1px solid var(--line);background:transparent;padding:9px 18px;border-radius:999px;
+    font-size:.82rem;color:#5c544c;font-weight:500}
+  .pill b{color:var(--ink);font-weight:600}
+
+  .wrap{max-width:760px;margin:0 auto;padding:0 22px}
+
+  /* TIMELINE */
+  .timeline{margin:64px auto;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:38px 40px;box-shadow:var(--shadow)}
+  .timeline h2{font-family:var(--serif);font-weight:500;font-size:1.5rem;margin-bottom:6px}
+  .timeline .sub{color:var(--muted);font-size:.86rem;margin-bottom:26px}
+  .tl-item{display:flex;gap:22px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .tl-item:last-child{border-bottom:none}
+  .tl-time{flex:0 0 56px;font-family:var(--serif);font-size:1.05rem;color:var(--gold)}
+  .tl-desc b{font-weight:600}
+  .tl-desc span{display:block;color:var(--muted);font-size:.85rem;font-weight:300}
+
+  /* SECTION */
+  section{margin-top:78px}
+  .sec-head{text-align:center;margin-bottom:36px}
+  .sec-num{display:inline-grid;place-items:center;width:46px;height:46px;border:1px solid var(--gold);
+    border-radius:50%;font-family:var(--serif);font-size:1.2rem;color:var(--gold);margin-bottom:16px}
+  .sec-head h2{font-family:var(--serif);font-weight:500;font-size:1.85rem}
+  .sec-head small{display:block;color:var(--muted);font-weight:300;font-size:.92rem;margin-top:8px;max-width:460px;margin-left:auto;margin-right:auto}
+
+  /* CARD */
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    margin-bottom:22px;box-shadow:var(--shadow);transition:transform .25s ease,box-shadow .25s ease}
+  .card:hover{transform:translateY(-3px);box-shadow:0 16px 50px rgba(60,45,30,.1)}
+  .card.top{border-color:var(--gold-soft)}
+  .thumb{position:relative;width:100%;aspect-ratio:16/8;overflow:hidden;background:#efe9e0}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.92)}
+  .thumb iframe{width:100%;height:100%;border:0;display:block;filter:grayscale(.1)}
+  .badge{position:absolute;top:16px;left:16px;background:rgba(255,253,250,.94);backdrop-filter:blur(6px);
+    color:var(--gold);font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+    padding:6px 13px;border-radius:999px;border:1px solid var(--gold-soft);z-index:2;pointer-events:none}
+  .body{padding:26px 28px 28px}
+  .card h3{font-family:var(--serif);font-weight:500;font-size:1.35rem;line-height:1.3}
+  .stars{display:inline-block;margin-top:6px;color:var(--gold);font-size:.82rem;font-weight:500;font-family:var(--sans)}
+  .addr{color:var(--muted);font-size:.85rem;margin:12px 0 16px;font-weight:300}
+  .addr a{color:var(--gold);text-decoration:none;font-weight:500;border-bottom:1px solid var(--gold-soft)}
+  .addr a:hover{border-color:var(--gold)}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .tag{border:1px solid var(--line);color:#6b6259;font-size:.76rem;font-weight:500;padding:4px 12px;border-radius:999px}
+  .tag.price{border-color:var(--gold-soft);color:var(--gold)}
+  .note{font-size:.95rem;color:#544c44;font-weight:300}
+  .note b{font-weight:600;color:var(--ink)}
+  .review{margin-top:14px;padding-left:16px;border-left:2px solid var(--gold-soft);
+    font-family:var(--serif);font-style:italic;font-size:.95rem;color:#6f655b}
+
+  /* TIPS */
+  .tipbox{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:34px 38px;margin-top:64px;box-shadow:var(--shadow)}
+  .tipbox h4{font-family:var(--serif);font-weight:500;font-size:1.4rem;margin-bottom:16px}
+  .tipbox ul{list-style:none}
+  .tipbox li{position:relative;padding-left:22px;margin:10px 0;font-size:.95rem;font-weight:300;color:#544c44}
+  .tipbox li::before{content:"·";position:absolute;left:4px;top:-2px;color:var(--gold);font-size:1.4rem}
+  .tipbox li b{font-weight:600;color:var(--ink)}
+
+  footer{text-align:center;margin-top:70px;color:var(--muted);font-weight:300}
+  footer .sig{font-family:var(--serif);font-style:italic;font-size:1.25rem;color:var(--ink)}
+  footer small{display:block;margin-top:14px;font-size:.76rem;line-height:1.7;max-width:560px;margin-left:auto;margin-right:auto}
+
+  /* PICK BUTTON + SELECTED */
+  .pick{margin-top:20px;width:100%;padding:12px;border:1px solid var(--gold);background:transparent;color:var(--gold);
+    font-family:var(--sans);font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    border-radius:999px;cursor:pointer;transition:all .2s}
+  .pick:hover{background:var(--gold-soft)}
+  .card.selected{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-soft),0 16px 50px rgba(60,45,30,.1)}
+  .card.selected .pick{background:var(--gold);color:#fff;border-color:var(--gold)}
+  .card.selected .pick::before{content:"✓ "}
+
+  /* DOCK */
+  .dock{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:12px;
+    background:var(--ink);color:#fff;padding:11px 13px 11px 22px;border-radius:999px;box-shadow:0 14px 44px rgba(0,0,0,.28);
+    font-size:.85rem;max-width:94vw}
+  .dock .cnt{font-weight:300;opacity:.85;white-space:nowrap}
+  .dock .cnt b{font-weight:600;opacity:1;color:var(--gold-soft)}
+  .dock button{border:0;border-radius:999px;padding:10px 16px;font-family:var(--sans);font-weight:600;font-size:.78rem;cursor:pointer;white-space:nowrap;transition:opacity .2s}
+  .dock .ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.28)}
+  .dock .go{background:var(--gold);color:#fff}
+  .dock button:disabled{opacity:.35;cursor:not-allowed}
+
+  /* PLAN PANEL */
+  #planPanel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:34px 38px;margin-top:48px;box-shadow:var(--shadow);scroll-margin:90px}
+  #planPanel h4{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin-bottom:4px}
+  #planPanel .ph{color:var(--muted);font-size:.86rem;font-weight:300;margin-bottom:24px}
+  .plan-row{display:flex;gap:22px;padding:15px 0;border-bottom:1px solid var(--line)}
+  .plan-row:last-of-type{border-bottom:none}
+  .plan-row .t{flex:0 0 52px;font-family:var(--serif);color:var(--gold);font-size:1.1rem}
+  .plan-row .l{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:3px}
+  .plan-row .n{font-weight:500;font-size:1.08rem}
+  .plan-row .n.empty{color:var(--muted);font-weight:300;font-style:italic}
+  .plan-actions{margin-top:26px}
+  .plan-actions a{display:inline-block;text-decoration:none;border-radius:999px;padding:14px 26px;font-weight:600;font-size:.85rem;background:var(--gold);color:#fff;transition:opacity .2s}
+  .plan-actions a.dis{opacity:.35;pointer-events:none}
+
+  @media(max-width:560px){
+    header h1{font-size:2.1rem} .timeline,.tipbox,#planPanel{padding:28px 22px} .body{padding:22px}
+    .dock{gap:8px;padding:10px 10px 10px 16px;font-size:.78rem} .dock .cnt{display:none}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Lời mời · 30 / 5</div>
+  <h1>Mình đi chơi<br><em>cùng nhau nhé?</em></h1>
+  <div class="hr-gold"></div>
+  <p>Trò chuyện · dạo phố · cùng nhau khám phá thành phố lên đèn</p>
+  <div class="meta-bar">
+    <span class="pill"><b>Đón:</b> 64 Nguyễn Khoái, P.2, Q.4</span>
+    <span class="pill"><b>Bắt đầu:</b> 15:00</span>
+    <span class="pill"><b>Khu vực:</b> Q.4 &amp; Q.1</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- TIMELINE -->
+  <div class="timeline">
+    <h2>Lịch trình gợi ý</h2>
+    <div class="sub">Một dòng chảy nhẹ nhàng, không gấp gáp</div>
+    <div class="tl-item"><div class="tl-time">15:00</div><div class="tl-desc"><b>Đón nàng</b><span>64 Nguyễn Khoái — xuất phát</span></div></div>
+    <div class="tl-item"><div class="tl-time">15:15</div><div class="tl-desc"><b>Cafe trò chuyện</b><span>Ngay trên đường Nguyễn Khoái</span></div></div>
+    <div class="tl-item"><div class="tl-time">16:30</div><div class="tl-desc"><b>Cùng nhau đi chơi</b><span>Hoạt động thú vị cho hai người</span></div></div>
+    <div class="tl-item"><div class="tl-time">18:45</div><div class="tl-desc"><b>Ăn tối</b><span>Nhà hàng lãng mạn khu Bến Vân Đồn</span></div></div>
+    <div class="tl-item"><div class="tl-time">20:30</div><div class="tl-desc"><b>Kết thúc buổi tối</b><span>Ngắm thành phố lên đèn</span></div></div>
+  </div>
+
+  <!-- 1. CAFE -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">I</div>
+      <h2>Cafe trò chuyện</h2>
+      <small>Không gian đẹp, yên — để hai đứa ngồi tâm sự</small>
+    </div>
+
+    <div class="card top">
+      <div class="thumb"><span class="badge">Nên chọn</span><iframe loading="lazy" src="https://www.google.com/maps?q=September+Saigon+40/60/30+Nguyen+Khoai+Quan+4&output=embed"></iframe></div>
+      <div class="body">
+        <h3>September Saigon</h3>
+        <div class="stars">★ "quán hình tròn" — gần điểm đón nhất</div>
+        <div class="addr">40/60/30 Nguyễn Khoái, P.2, Q.4 · <a href="https://www.google.com/maps/search/September+Saigon+Nguyen+Khoai+Quan+4" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag">Đi bộ 2 phút</span><span class="tag">Tông trắng/be ấm</span><span class="tag">Nhiều góc chụp</span><span class="tag">Có bánh ngọt</span></div>
+        <p class="note">Concept "The Wind Blows" — đường cong mềm mại, ô cửa tròn lấy sáng tự nhiên. Cùng đường đón nàng nên rất tiện để mở màn.</p>
+        <div class="review">“Một trong những quán đẹp nhất Quận 4 — không gian Địa Trung Hải, sang mà ấm.”</div>
+        <p class="note" style="margin-top:12px;color:var(--gold)">Lưu ý: cuối tuần khá đông &amp; hơi ồn → tới sớm (~15:15) để có chỗ đẹp, yên.</p>
+      </div>
+    </div>
+
+    <div class="card top">
+      <div class="thumb"><span class="badge">Yên · view sông</span><iframe loading="lazy" src="https://www.google.com/maps?q=The+Coffee+Plus+33B+Ben+Van+Don+Quan+4&output=embed"></iframe></div>
+      <div class="body">
+        <h3>The Coffee Plus</h3>
+        <div class="stars">★ 5/5 (review GZIP) — tốt nhất để nói chuyện</div>
+        <div class="addr">33B Bến Vân Đồn, Q.4 · <a href="https://www.google.com/maps/search/The+Coffee+Plus+Ben+Van+Don+Quan+4" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag">View sông Sài Gòn</span><span class="tag">Thấy Bitexco &amp; Cầu Mống</span><span class="tag price">30k–65k</span></div>
+        <p class="note">Rộng, thoáng, cửa kính lớn, <b>yên tĩnh hơn September</b> — nếu ưu tiên trò chuyện &amp; sự riêng tư thì đây là lựa chọn nhỉnh hơn.</p>
+        <div class="review">“Vị trí góc đẹp, view sông hiếm có ở trung tâm; đồ uống ngon, phục vụ chu đáo.”</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="thumb"><iframe loading="lazy" src="https://www.google.com/maps?q=The+Yuson+Tea+Coffee+Quan+4&output=embed"></iframe></div>
+      <div class="body">
+        <h3>The Yuson Tea &amp; Coffee</h3>
+        <div class="stars">★ wabi-sabi — yên tĩnh nhất</div>
+        <div class="addr">Quận 4 · <a href="https://www.google.com/maps/search/The+Yuson+Tea+Coffee+Quan+4" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag">Wabi-sabi</span><span class="tag">Mộc, tinh tế</span><span class="tag">Rất tĩnh</span></div>
+        <p class="note">Nếu ưu tiên <b>không gian yên để nói chuyện sâu</b> (hơn là sống ảo) — trang trí cổ điển, nhạc nhẹ, ít ồn.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="thumb"><iframe loading="lazy" src="https://www.google.com/maps?q=Nha+Xua+Cafe+Nguyen+Khoai+Quan+4&output=embed"></iframe></div>
+      <div class="body">
+        <h3>Nhà Xưa · Cộng Cafe · LALA</h3>
+        <div class="stars">★ LALA 4.3/5 Google · phương án dự phòng</div>
+        <div class="addr">Nhà Xưa: 40/60/30 Nguyễn Khoái, Q.4 · <a href="https://www.google.com/maps/search/Nha+Xua+Cafe+Nguyen+Khoai+Quan+4" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag">Nhà Xưa: gỗ, hồ cá koi</span><span class="tag">Cộng: nhạc chill</span><span class="tag">LALA: sân vườn rộng</span></div>
+        <p class="note">Các lựa chọn an toàn, dễ chịu nếu hai quán trên đông: Nhà Xưa hoài cổ tĩnh lặng, Cộng nhạc nhẹ hợp tâm sự, LALA nhiều cây xanh.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. DI CHOI -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">II</div>
+      <h2>Cùng nhau đi chơi</h2>
+      <small>Hoạt động tương tác cho hai người — chọn một cái thấy thích, càng vui càng tốt</small>
+    </div>
+
+    <div class="card top">
+      <div class="thumb"><span class="badge">Lãng mạn nhất</span><iframe loading="lazy" src="https://www.google.com/maps?q=Ben+Bach+Dang+Waterbus+Sai+Gon&output=embed"></iframe></div>
+      <div class="body">
+        <h3>Buýt sông Sài Gòn + dạo phố đi bộ</h3>
+        <div class="stars">★ ngắm thành phố lên đèn từ mặt sông</div>
+        <div class="addr">Bến Bạch Đằng, Q.1 (cách phố đi bộ ~200m) · <a href="https://www.google.com/maps/search/Ben+Bach+Dang+Waterbus+Sai+Gon" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag">Gió sông mát</span><span class="tag">Đèn lung linh</span><span class="tag">~52 phút/chiều</span><span class="tag price">vé bình dân</span></div>
+        <p class="note">Lên tàu ngắm trọn thành phố từ mặt sông — buổi tối cực tình. Xuống bến đi bộ vài bước là tới <b>phố đi bộ Nguyễn Huệ</b> để dạo, ăn vặt, chụp hình.</p>
+        <div class="review">“Trải nghiệm mới mẻ, ngắm thành phố về đêm lãng mạn, gió sông nhẹ nhàng thư thái.”</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="thumb"><iframe loading="lazy" src="https://www.google.com/maps?q=Master+Escape+226+Tran+Phu+Quan+5&output=embed"></iframe></div>
+      <div class="body">
+        <h3>Escape Room / Board game cafe</h3>
+        <div class="stars">★ giải đố cùng nhau, cười nắc nẻ</div>
+        <div class="addr">The Guild (cafe + game) · Master Escape – 226 Trần Phú · <a href="https://www.google.com/maps/search/board+game+cafe+escape+room+quan+1+sai+gon" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag">Hợp tác, ăn ý</span><span class="tag">Hồi hộp, vui</span><span class="tag">Trong nhà ☔</span></div>
+        <p class="note">Cùng phá án giúp hai đứa "ăn ý" và có chuyện cười cả buổi. Board game thì nhẹ nhàng hơn, vừa chơi vừa uống nước.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="thumb"><iframe loading="lazy" src="https://www.google.com/maps?q=CLB+Ban+Cung+Galaxy+55B+Nguyen+Thi+Minh+Khai+Quan+1&output=embed"></iframe></div>
+      <div class="body">
+        <h3>Bắn cung</h3>
+        <div class="stars">★ Galaxy 4.7/5 (325 đánh giá)</div>
+        <div class="addr">Galaxy – 55B Nguyễn Thị Minh Khai, Q.1 · Thiên Mã – Số 9 Đường 48, Q.4 · <a href="https://www.google.com/maps/search/CLB+Ban+Cung+Galaxy+Nguyen+Thi+Minh+Khai" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag price">~80k/giờ</span><span class="tag">Có HDV</span><span class="tag">Thi nhau cực vui</span></div>
+        <p class="note">Hoạt động "phá băng" năng động, thi xem ai bắn trúng hơn → tiếng cười đảm bảo. Thiên Mã ngay Q.4 (ngày thường mở 17:30).</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="thumb"><iframe loading="lazy" src="https://www.google.com/maps?q=Hey+Camel+Ceramics+331+Le+Van+Sy+Quan+3&output=embed"></iframe></div>
+      <div class="body">
+        <h3>Làm gốm cùng nhau</h3>
+        <div class="stars">★ chill — tự tay làm quà kỷ niệm</div>
+        <div class="addr">Hey Camel – 331/8A Lê Văn Sỹ, Q.3 · Bopbi House – 6C Tú Xương, Q.3 · <a href="https://www.google.com/maps/search/Hey+Camel+Ceramics+Le+Van+Sy" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag price">290k–550k/người</span><span class="tag">2–3 tiếng</span><span class="tag">Cùng nặn 1 chiếc cốc</span></div>
+        <p class="note">Cùng nặn một chiếc cốc/đĩa làm kỷ niệm đôi — rất tình. Lưu ý tốn 2–3h, nếu chọn thì nên lùi giờ ăn tối lại.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="thumb"><iframe loading="lazy" src="https://www.google.com/maps?q=Cybercore+Gaming+58+Tan+Vinh+Quan+4&output=embed"></iframe></div>
+      <div class="body">
+        <h3>Chơi PS5 phòng couple</h3>
+        <div class="stars">★ riêng tư, ngay Quận 4</div>
+        <div class="addr">Cybercore Gaming – 58 Tân Vĩnh, P.6, Q.4 · Ocean PlayStation – 424 Nguyễn Trãi, Q.5 · <a href="https://www.google.com/maps/search/Cybercore+Gaming+58+Tan+Vinh+Quan+4" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag">Phòng riêng cho 2</span><span class="tag">PS5 + Netflix</span><span class="tag price">~30k–60k/giờ</span><span class="tag">Trong nhà ☔</span></div>
+        <p class="note">Cùng cầm tay máy đấu game co-op (FIFA, Mario, It Takes Two...) trong phòng riêng ấm cúng — vừa vui vừa gần gũi. Ocean PlayStation có khu "couple" giường nệm nổi tiếng nếu muốn chill hơn.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="thumb"><iframe loading="lazy" src="https://www.google.com/maps?q=CGV+Galaxy+cinema+Quan+1+Sai+Gon&output=embed"></iframe></div>
+      <div class="body">
+        <h3>Lựa chọn nhẹ nhàng khác</h3>
+        <div class="stars">★ tùy tâm trạng hôm đó</div>
+        <div class="tags"><span class="tag">🎬 Xem phim</span><span class="tag">🎳 Bowling</span><span class="tag">🖼️ Triển lãm (TỎA · CV 23/9)</span><span class="tag">🎤 Hát với nhau</span></div>
+        <p class="note">Nếu trời mưa hay muốn thư thả: một bộ phim, ván bowling, hay ghé triển lãm nghệ thuật đều là cách hay để ở bên nhau.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. AN TOI -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">III</div>
+      <h2>Ăn tối</h2>
+      <small>Quán ngon, lãng mạn — khu Bến Vân Đồn (Q.4) gần điểm đón</small>
+    </div>
+
+    <div class="card top">
+      <div class="thumb"><span class="badge">Nên chọn</span><iframe loading="lazy" src="https://www.google.com/maps?q=NGUYEN%27S+restaurant+107+Ben+Van+Don+Quan+4&output=embed"></iframe></div>
+      <div class="body">
+        <h3>NGUYEN'S</h3>
+        <div class="stars">★ thiết kế tinh tế, hợp hẹn hò</div>
+        <div class="addr">107 Bến Vân Đồn, P.9, Q.4 · <a href="https://www.google.com/maps/search/NGUYEN%27S+restaurant+Ben+Van+Don+Quan+4" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag">Không gian đẹp, ấm</span><span class="tag">Hợp date</span><span class="tag">Á–Âu</span></div>
+        <p class="note">Được nhắc đến nhiều như điểm hẹn hò lãng mạn ở Q.4, thiết kế chỉn chu — hợp cho bữa tối "có gì đó đặc biệt".</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="thumb"><iframe loading="lazy" src="https://www.google.com/maps?q=MK+Kitchen+Bar+320+Ben+Van+Don+Quan+4&output=embed"></iframe></div>
+      <div class="body">
+        <h3>MK Kitchen &amp; Bar</h3>
+        <div class="stars">★ sang, menu đa dạng</div>
+        <div class="addr">320 Bến Vân Đồn, P.2, Q.4 · <a href="https://www.google.com/maps/search/MK+Kitchen+Bar+Ben+Van+Don+Quan+4" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag">Không gian sang</span><span class="tag">Á–Âu kết hợp</span><span class="tag">Có bar</span></div>
+        <p class="note">Muốn không khí hơi "fancy" + có thể làm ly cocktail nhẹ sau bữa ăn thì rất hợp.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="thumb"><iframe loading="lazy" src="https://www.google.com/maps?q=Bangkok+BBQ+360B+Ben+Van+Don+Quan+4&output=embed"></iframe></div>
+      <div class="body">
+        <h3>Bangkok BBQ</h3>
+        <div class="stars">★ ấm cúng, đồ nướng &amp; lẩu</div>
+        <div class="addr">360B Bến Vân Đồn, Q.4 · <a href="https://www.google.com/maps/search/Bangkok+BBQ+Ben+Van+Don+Quan+4" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag">Nướng &amp; lẩu</span><span class="tag">Tông vàng nâu ấm</span><span class="tag">Vui, dễ ăn</span></div>
+        <p class="note">Nếu thích kiểu ấm áp, vừa ăn vừa nói chuyện rôm rả thì chọn quán này.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. KET THUC -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">IV</div>
+      <h2>Kết thúc buổi tối</h2>
+      <small>Khép lại nhẹ nhàng &amp; lãng mạn — chọn theo tâm trạng (có cả backup trời mưa)</small>
+    </div>
+
+    <div class="card top">
+      <div class="thumb"><span class="badge">Lãng mạn</span><iframe loading="lazy" src="https://www.google.com/maps?q=rooftop+bar+Nguyen+Hue+Quan+1+Sai+Gon&output=embed"></iframe></div>
+      <div class="body">
+        <h3>Rooftop bar ngắm thành phố</h3>
+        <div class="stars">★ view đỉnh, nhạc chill</div>
+        <div class="addr">Trăng Non &amp; nhiều rooftop khu Q.1 · <a href="https://www.google.com/maps/search/rooftop+bar+quan+1+sai+gon" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag price">29k–95k (Trăng Non)</span><span class="tag">View 270°</span><span class="tag">Ấm cúng</span></div>
+        <p class="note">Lên cao nhâm nhi một ly, ngắm thành phố lên đèn, nhạc nhẹ — cách khép lại buổi tối cực tình.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="thumb"><iframe loading="lazy" src="https://www.google.com/maps?q=Pho+di+bo+Nguyen+Hue+Quan+1&output=embed"></iframe></div>
+      <div class="body">
+        <h3>Dạo phố đi bộ Nguyễn Huệ &amp; bến Bạch Đằng</h3>
+        <div class="stars">★ miễn phí, vui, rất "đôi"</div>
+        <div class="addr">Phố đi bộ Nguyễn Huệ, Q.1 (cuối tuần cấm xe 19:00–23:00) · <a href="https://www.google.com/maps/search/Pho+di+bo+Nguyen+Hue" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag">Đèn rực rỡ</span><span class="tag">Đài phun nước</span><span class="tag">Ăn vặt, chụp hình</span></div>
+        <p class="note">Đi dạo, ngắm đài phun nước, chụp hình kỷ niệm — rồi nắm tay tản bộ ra bến Bạch Đằng ngắm sông.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="thumb"><iframe loading="lazy" src="https://www.google.com/maps?q=Pho+oc+Vinh+Khanh+Quan+4&output=embed"></iframe></div>
+      <div class="body">
+        <h3>Ăn vặt / ốc đêm phố Vĩnh Khánh</h3>
+        <div class="stars">★ đậm chất Sài Gòn, ngay Q.4</div>
+        <div class="addr">Đường Vĩnh Khánh, Q.4 · <a href="https://www.google.com/maps/search/Pho+oc+Vinh+Khanh+Quan+4" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag">Ốc &amp; hải sản tươi</span><span class="tag">Náo nhiệt, vui</span><span class="tag">Tiện đường về</span></div>
+        <p class="note">Ăn tối nhẹ và còn bụng — ghé phố ốc Vĩnh Khánh "lai rai", trò chuyện rôm rả. Rất gần điểm đón.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="thumb"><iframe loading="lazy" src="https://www.google.com/maps?q=Gentlemen%27s+Coffee+40+Ton+That+Thuyet+Quan+4&output=embed"></iframe></div>
+      <div class="body">
+        <h3>Chè / kem · ☔ backup trời mưa</h3>
+        <div class="stars">★ ngọt ngào, trong nhà an toàn mưa</div>
+        <div class="addr">Cộng Cafe · Gentlemen's Coffee (Q.4, có mái) · <a href="https://www.google.com/maps/search/quan+che+kem+quan+4" target="_blank">Google Maps</a></div>
+        <div class="tags"><span class="tag">Ngọt ngào</span><span class="tag">Có mái che</span><span class="tag">Gần</span></div>
+        <p class="note">Muốn nhẹ nhàng: rủ nhau ăn chè/kem rồi tâm sự nốt. Trời mưa → Gentlemen's Coffee (tầng lầu có mái) hoặc The Coffee Plus là ấm áp, an toàn.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPS -->
+  <div class="tipbox">
+    <h4>Vài lưu ý nhỏ</h4>
+    <ul>
+      <li><b>Đặt bàn trước</b> NGUYEN'S / MK Kitchen (gọi đặt 18:30–19:00) để chắc chỗ đẹp.</li>
+      <li><b>Kiểm tra giờ &amp; ngày:</b> bắn cung Thiên Mã (Q.4) ngày thường mở từ 17:30, cuối tuần từ 15:00; buýt sông &amp; triển lãm nên check lịch trước.</li>
+      <li><b>Phương án mưa:</b> ưu tiên Gentlemen's Coffee (Q.4) hoặc The Coffee Plus — đều có chỗ trong nhà, gần.</li>
+      <li><b>Di chuyển:</b> cả tuyến gói gọn trong Q.4 ↔ Q.1, mỗi chặng ~5–15 phút. Nhẹ nhàng, không gấp.</li>
+    </ul>
+  </div>
+
+  <!-- PLAN PANEL -->
+  <div id="planPanel">
+    <h4>Lịch trình của mình</h4>
+    <div class="ph">Bấm “Chọn địa điểm này” ở từng mục phía trên — lịch trình &amp; đường đi sẽ tự hiện ra ở đây.</div>
+    <div class="plan-row"><div class="t">15:00</div><div><div class="l">Điểm đón</div><div class="n">64 Nguyễn Khoái, P.2, Q.4</div></div></div>
+    <div class="plan-row" data-slot="1"><div class="t">15:15</div><div><div class="l">Cafe trò chuyện</div><div class="n empty">— chưa chọn —</div></div></div>
+    <div class="plan-row" data-slot="2"><div class="t">16:30</div><div><div class="l">Cùng nhau đi chơi</div><div class="n empty">— chưa chọn —</div></div></div>
+    <div class="plan-row" data-slot="3"><div class="t">18:45</div><div><div class="l">Ăn tối</div><div class="n empty">— chưa chọn —</div></div></div>
+    <div class="plan-row" data-slot="4"><div class="t">20:30</div><div><div class="l">Kết thúc buổi tối</div><div class="n empty">— chưa chọn —</div></div></div>
+    <div class="plan-actions"><a class="dis" id="routeBtn" target="_blank" rel="noopener" href="#">🧭 Chỉ đường toàn tuyến trên Google Maps</a></div>
+  </div>
+
+  <footer>
+    <div class="sig">Chúc tụi mình một buổi thật ngọt ngào.</div>
+    <small>Mỗi địa điểm hiển thị bản đồ Google Maps thật — bấm vào để xem ảnh thật, đánh giá &amp; chỉ đường. Thông tin tổng hợp từ Bách Hóa Xanh, Xanh SM, GZIP, riviu.vn, Tripadvisor, Vietinsiders, VinWonders, Klook, Mia.vn (5/2026). Nên xác nhận lại giờ mở cửa &amp; giá trước khi đi.</small>
+  </footer>
+
+</div>
+
+<div class="dock">
+  <span class="cnt"><b id="dockCnt">0</b>/4 mục đã chọn</span>
+  <button class="ghost" id="toPlan">📋 Lịch trình</button>
+  <button class="go" id="dockRoute" disabled>🧭 Chỉ đường</button>
+</div>
+
+<script>
+(function(){
+  var PICKUP = {name:'64 Nguyễn Khoái, P.2, Q.4', query:'64 Nguyen Khoai Phuong 2 Quan 4'};
+  var sections = Array.prototype.slice.call(document.querySelectorAll('section'));
+  var state = {};
+
+  sections.forEach(function(sec, i){
+    var slot = i + 1;
+    sec.querySelectorAll('.card').forEach(function(card){
+      var iframe = card.querySelector('.thumb iframe');
+      var query = '';
+      try { query = new URL(iframe.src).searchParams.get('q') || ''; } catch(e){}
+      var name = card.querySelector('h3').textContent.trim();
+      var btn = document.createElement('button');
+      btn.className = 'pick';
+      btn.type = 'button';
+      btn.textContent = 'Chọn địa điểm này';
+      btn.addEventListener('click', function(){
+        var already = card.classList.contains('selected');
+        sec.querySelectorAll('.card').forEach(function(c){
+          c.classList.remove('selected');
+          var b = c.querySelector('.pick'); if(b) b.textContent = 'Chọn địa điểm này';
+        });
+        if(already){ delete state[slot]; }
+        else { card.classList.add('selected'); btn.textContent = 'Đã chọn'; state[slot] = {name:name, query:query}; }
+        render();
+      });
+      card.querySelector('.body').appendChild(btn);
+    });
+  });
+
+  var routeBtn = document.getElementById('routeBtn');
+  var dockRoute = document.getElementById('dockRoute');
+  var dockCnt = document.getElementById('dockCnt');
+
+  function render(){
+    var count = 0;
+    for(var s=1; s<=4; s++){
+      var row = document.querySelector('.plan-row[data-slot="'+s+'"] .n');
+      if(state[s]){ row.textContent = state[s].name; row.classList.remove('empty'); count++; }
+      else { row.textContent = '— chưa chọn —'; row.classList.add('empty'); }
+    }
+    dockCnt.textContent = count;
+
+    var stops = [PICKUP];
+    for(var k=1; k<=4; k++){ if(state[k]) stops.push(state[k]); }
+    if(stops.length >= 2){
+      var origin = encodeURIComponent(stops[0].query);
+      var dest = encodeURIComponent(stops[stops.length-1].query);
+      var mids = stops.slice(1, -1).map(function(x){ return encodeURIComponent(x.query); }).join('|');
+      var url = 'https://www.google.com/maps/dir/?api=1&origin='+origin+'&destination='+dest+'&travelmode=driving';
+      if(mids) url += '&waypoints=' + mids;
+      routeBtn.href = url; routeBtn.classList.remove('dis');
+      dockRoute.disabled = false; dockRoute.onclick = function(){ window.open(url, '_blank'); };
+    } else {
+      routeBtn.href = '#'; routeBtn.classList.add('dis');
+      dockRoute.disabled = true; dockRoute.onclick = null;
+    }
+  }
+
+  document.getElementById('toPlan').addEventListener('click', function(){
+    document.getElementById('planPanel').scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
