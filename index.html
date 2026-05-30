@@ -133,9 +133,20 @@
   .plan-row .l{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:3px}
   .plan-row .n{font-weight:500;font-size:1.08rem}
   .plan-row .n.empty{color:var(--muted);font-weight:300;font-style:italic}
-  .plan-actions{margin-top:26px}
+  .plan-actions{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px}
   .plan-actions a{display:inline-block;text-decoration:none;border-radius:999px;padding:14px 26px;font-weight:600;font-size:.85rem;background:var(--gold);color:#fff;transition:opacity .2s}
   .plan-actions a.dis{opacity:.35;pointer-events:none}
+  .plan-actions .share{border:1px solid var(--gold);background:transparent;color:var(--gold);border-radius:999px;
+    padding:14px 24px;font-family:var(--sans);font-weight:600;font-size:.85rem;cursor:pointer;
+    display:inline-flex;align-items:center;gap:9px;transition:background .2s}
+  .plan-actions .share:hover{background:var(--gold-soft)}
+  .plan-actions .share svg{width:17px;height:17px;stroke-width:2}
+
+  /* TOAST */
+  .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);z-index:100;
+    background:var(--ink);color:#fff;padding:13px 22px;border-radius:999px;font-size:.86rem;font-weight:500;
+    box-shadow:0 14px 44px rgba(0,0,0,.28);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;max-width:90vw;text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
   @media(max-width:560px){
     header h1{font-size:2.1rem} .timeline,.tipbox,#planPanel{padding:28px 22px} .body{padding:22px}
@@ -417,7 +428,10 @@
     <div class="plan-row" data-slot="2"><div class="t">16:30</div><div><div class="l">Cùng nhau đi chơi</div><div class="n empty">— chưa chọn —</div></div></div>
     <div class="plan-row" data-slot="3"><div class="t">18:45</div><div><div class="l">Ăn tối</div><div class="n empty">— chưa chọn —</div></div></div>
     <div class="plan-row" data-slot="4"><div class="t">20:30</div><div><div class="l">Kết thúc buổi tối</div><div class="n empty">— chưa chọn —</div></div></div>
-    <div class="plan-actions"><a class="dis" id="routeBtn" target="_blank" rel="noopener" href="#"><i data-lucide="route"></i>Chỉ đường toàn tuyến trên Google Maps</a></div>
+    <div class="plan-actions">
+      <a class="dis" id="routeBtn" target="_blank" rel="noopener" href="#"><i data-lucide="route"></i>Chỉ đường toàn tuyến</a>
+      <button class="share" id="shareBtn" type="button"><i data-lucide="link"></i>Sao chép link đã chọn</button>
+    </div>
   </div>
 
   <footer>
@@ -433,12 +447,16 @@
   <button class="go" id="dockRoute" disabled><i data-lucide="navigation"></i>Chỉ đường</button>
 </div>
 
+<div class="toast" id="toast"></div>
+
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
 (function(){
   var PICKUP = {name:'64 Nguyễn Khoái, P.2, Q.4', query:'64 Nguyen Khoai Phuong 2 Quan 4'};
   var sections = Array.prototype.slice.call(document.querySelectorAll('section'));
   var state = {};
+  var slotCards = {};
+  var STORE_KEY = 'datePlanPicks_v1';
   var dock = document.querySelector('.dock');
 
   var GLYPHS = ['💛','✨','🤍','💫','🩷'];
@@ -458,32 +476,43 @@
     }
   }
 
+  function clearSection(slot){
+    (slotCards[slot] || []).forEach(function(c){
+      c.classList.remove('selected');
+      var b = c.querySelector('.pick'); if(b) b.textContent = 'Chọn địa điểm này';
+    });
+  }
+  function select(slot, idx){
+    var card = (slotCards[slot] || [])[idx]; if(!card) return;
+    var iframe = card.querySelector('.thumb iframe');
+    var query = ''; try { query = new URL(iframe.src).searchParams.get('q') || ''; } catch(e){}
+    var name = card.querySelector('h3').textContent.trim();
+    card.classList.add('selected');
+    var b = card.querySelector('.pick'); if(b) b.textContent = 'Đã chọn';
+    state[slot] = {name:name, query:query, idx:idx};
+  }
+
   sections.forEach(function(sec, i){
     var slot = i + 1;
-    sec.querySelectorAll('.card').forEach(function(card){
-      var iframe = card.querySelector('.thumb iframe');
-      var query = '';
-      try { query = new URL(iframe.src).searchParams.get('q') || ''; } catch(e){}
-      var name = card.querySelector('h3').textContent.trim();
+    var cards = Array.prototype.slice.call(sec.querySelectorAll('.card'));
+    slotCards[slot] = cards;
+    cards.forEach(function(card, idx){
       var btn = document.createElement('button');
       btn.className = 'pick';
       btn.type = 'button';
       btn.textContent = 'Chọn địa điểm này';
       btn.addEventListener('click', function(ev){
         var already = card.classList.contains('selected');
-        sec.querySelectorAll('.card').forEach(function(c){
-          c.classList.remove('selected');
-          var b = c.querySelector('.pick'); if(b) b.textContent = 'Chọn địa điểm này';
-        });
+        clearSection(slot);
         if(already){ delete state[slot]; }
         else {
-          card.classList.add('selected'); btn.textContent = 'Đã chọn'; state[slot] = {name:name, query:query};
+          select(slot, idx);
           var r = btn.getBoundingClientRect();
           var px = (ev && ev.clientX) ? ev.clientX : r.left + r.width/2;
           var py = (ev && ev.clientY) ? ev.clientY : r.top + r.height/2;
           burst(px, py);
         }
-        render();
+        saveState(); render();
       });
       card.querySelector('.body').appendChild(btn);
     });
@@ -519,10 +548,55 @@
     }
   }
 
+  var shareBtn = document.getElementById('shareBtn');
+  var toast = document.getElementById('toast');
+  var toastTimer = null;
+
+  function encode(){
+    var parts = [];
+    for(var s=1; s<=4; s++){ if(state[s]) parts.push(s + '.' + state[s].idx); }
+    return parts.join(',');
+  }
+  function saveState(){
+    var str = encode();
+    try { if(str) localStorage.setItem(STORE_KEY, str); else localStorage.removeItem(STORE_KEY); } catch(e){}
+    try { history.replaceState(null, '', str ? ('#p=' + str) : (location.pathname + location.search)); } catch(e){}
+  }
+  function restore(){
+    var str = '';
+    var m = (location.hash || '').match(/p=([^&]+)/);
+    if(m){ try { str = decodeURIComponent(m[1]); } catch(e){ str = m[1]; } }
+    if(!str){ try { str = localStorage.getItem(STORE_KEY) || ''; } catch(e){} }
+    if(!str) return;
+    str.split(',').forEach(function(pair){
+      var a = pair.split('.'), slot = parseInt(a[0], 10), idx = parseInt(a[1], 10);
+      if(slot >= 1 && slot <= 4 && slotCards[slot] && slotCards[slot][idx]){ clearSection(slot); select(slot, idx); }
+    });
+  }
+  function showToast(msg){
+    if(!toast) return;
+    toast.textContent = msg; toast.classList.add('show');
+    if(toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2800);
+  }
+  function shareLink(){
+    saveState();
+    if(!encode()){ showToast('Hãy chọn ít nhất 1 địa điểm trước nhé!'); return; }
+    var url = location.href;
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(
+        function(){ showToast('Đã sao chép link! Gửi cho người ấy để họ thấy lựa chọn của bạn 💛'); },
+        function(){ window.prompt('Copy link này gửi đi:', url); }
+      );
+    } else { window.prompt('Copy link này gửi đi:', url); }
+  }
+
   document.getElementById('toPlan').addEventListener('click', function(){
     document.getElementById('planPanel').scrollIntoView({behavior:'smooth', block:'start'});
   });
+  if(shareBtn) shareBtn.addEventListener('click', shareLink);
 
+  restore();
   render();
   if(window.lucide){ lucide.createIcons(); }
 })();
